@@ -1,11 +1,11 @@
 {
-    "name": "Padel One",
-    "short_name": "Padel One",
+    "name": "BYND Club",
+    "short_name": "BYND Club",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#FFFFFF",
-    "theme_color": "#101F3A",
-    "description": "App de fidelizacion de Padel One",
+    "background_color": "#F5F5F3",
+    "theme_color": "#F5F5F3",
+    "description": "Tus clubes de pádel, tus puntos y tus reservas en una sola app.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
