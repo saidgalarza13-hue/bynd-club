@@ -23,7 +23,20 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&display=block">
+  <!-- La fuente no frena la pantalla de carga: las tarjetas salen al instante y
+       el logo aparece cuando Manrope ya está lista (o a los 1,5 s, lo que pase antes). -->
+  <script>
+    (function () {
+      var h = document.documentElement;
+      function listo() { h.classList.add('sp-listo'); }
+      window.__spFuente = function () {
+        if (document.fonts && document.fonts.load) document.fonts.load('800 28px Manrope').then(listo, listo);
+        else listo();
+      };
+      setTimeout(listo, 1500);
+    })();
+  </script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&display=block" media="print" onload="this.media='all'; window.__spFuente()">
 
   <!-- Pantalla de carga: se ve apenas abre la página y se va cuando la app pinta. -->
   <style>
@@ -60,16 +73,16 @@
     }
     @keyframes sp-flotar { from { transform: translateY(-3px); } to { transform: translateY(4px); } }
 
-    .sp-marca {
-      display: flex; align-items: center; margin-top: 30px;
-      opacity: 0; animation: sp-subir .7s .45s ease forwards;
-    }
+    .sp-marca { display: flex; align-items: center; margin-top: 30px; opacity: 0; }
+    .sp-lema, .sp-pie { opacity: 0; }
+    .sp-listo .sp-marca { animation: sp-subir .7s .3s ease forwards; }
+    .sp-listo .sp-lema { animation: sp-subir .7s .45s ease forwards; }
+    .sp-listo .sp-pie { animation: sp-subir .7s .55s ease forwards; }
     .sp-bynd { font-weight: 800; font-size: 28px; letter-spacing: .32em; margin-right: -.1em; line-height: 1; }
     .sp-raya { width: 1px; height: 21px; background: rgba(15, 15, 16, .3); margin: 0 12px 0 0; }
     .sp-club { font-weight: 600; font-size: 17px; letter-spacing: .22em; color: rgba(15, 15, 16, .7); line-height: 1; }
     .sp-lema {
       margin-top: 10px; font-size: 13.5px; font-weight: 600; color: #66666C;
-      opacity: 0; animation: sp-subir .7s .6s ease forwards;
     }
     .sp-carga { width: 112px; height: 3px; margin-top: 26px; border-radius: 3px; background: #E3E3E0; overflow: hidden; }
     .sp-carga i { display: block; width: 40%; height: 100%; border-radius: 3px; background: #0F0F10; animation: sp-ir 1.15s ease-in-out infinite; }
@@ -85,7 +98,7 @@
     .sp-pie b { font-size: 12.5px; font-weight: 800; letter-spacing: .3em; }
 
     @media (prefers-reduced-motion: reduce) {
-      .sp-carta, .sp-marca, .sp-lema { animation: none; opacity: 1; transform: var(--fin, none); }
+      .sp-carta, .sp-listo .sp-marca, .sp-listo .sp-lema, .sp-listo .sp-pie { animation: none; opacity: 1; transform: var(--fin, none); }
       .sp-carta > div, .sp-carga i { animation: none; }
     }
   </style>
